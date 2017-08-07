@@ -1,6 +1,6 @@
 Gem::Specification.new { |s|
   s.name          = 'money-coinmarketcap-bank'
-  s.version       = '0.1'
+  s.version       = '0.1.1'
   s.author        = 'Giovanni Capuano'
   s.email         = 'webmaster@giovannicapuano.net'
   s.homepage      = 'https://github.com/RoxasShadow'
