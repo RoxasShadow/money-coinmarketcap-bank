@@ -12,13 +12,16 @@ class Money
       # Seconds after which the current rates are automatically expired
       attr_accessor :ttl_in_seconds
 
+      # Parsed UpholdBank result as a Hash
+      attr_reader :tickers
+
       # Rates expiration time
       attr_reader :rates_expire_at
 
       def initialize(*args, &block)
         super
 
-        @ttl_in_seconds = 3600 # 1 hour
+        self.ttl_in_seconds = 3600 # 1 hour
       end
 
       def update_rates
@@ -55,17 +58,17 @@ class Money
         rate
       end
 
-      def coins
-        return @coins if @coins
-
+      def currencies
         response = open(EXCHANGE_URL).read
         @coins = JSON.parse(response)['markets']
+        @rates_expire_at = Time.now + ttl_in_seconds
+        @coins
       end
 
       def add_exchange_rates
-        coins.each do |coin|
-          iso_from = coin['symbol']
-          coin['price'].each do |iso_to, rate|
+        currencies.each do |currency|
+          iso_from = currency['symbol']
+          currency['price'].each do |iso_to, rate|
             next unless Money::Currency.find(iso_from) && Money::Currency.find(iso_to)
             add_rate(iso_from, iso_to, rate)
             add_rate(iso_to, iso_from, 1.0 / rate)
