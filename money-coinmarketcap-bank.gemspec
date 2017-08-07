@@ -11,7 +11,7 @@ Gem::Specification.new { |s|
   s.files = `git ls-files`.split("\n")
   s.require_paths = ['lib']
 
-  s.add_dependency 'money', '~> 6.7'
+  s.add_dependency 'money', '~> 6.9'
 
-  s.add_development_dependency 'rake', '~> 10.0'
+  s.add_development_dependency 'rake', '~> 12.0'
 }
