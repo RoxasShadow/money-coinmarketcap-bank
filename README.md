@@ -1,10 +1,11 @@
-# money-coinmarketcap-bank
-## CoinMarketCap frontend for ruby-money
+money-coinmarketcap-bank
+========================
+CoinMarketCap frontend for ruby-money
 
-Attach this gem to ruby-money to use it as bank and get the exchange rate from [http://coinmarketcap.com/](coinmarketcap.com).
+Attach this gem to ruby-money to use it as bank and get the exchange rate from [coinmarketcap.com](http://coinmarketcap.com/).
 
 This gem is basically a clone of [money-uphold-bank](https://github.com/subvisual/money-uphold-bank).
-Almost of all the credits go to its creators.
+All the credits go to its creators.
 
 # Usage
 
