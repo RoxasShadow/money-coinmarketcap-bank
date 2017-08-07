@@ -12,9 +12,6 @@ class Money
       # Seconds after which the current rates are automatically expired
       attr_accessor :ttl_in_seconds
 
-      # Parsed UpholdBank result as a Hash
-      attr_reader :tickers
-
       # Rates expiration time
       attr_reader :rates_expire_at
 
