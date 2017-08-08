@@ -6,7 +6,7 @@ require "json"
 class Money
   module Bank
     class CoinMarketCap < Money::Bank::VariableExchange
-      BASE_CURRENCY = "USD".freeze
+      BASE_CURRENCY = "BTC".freeze
       EXCHANGE_URL = "http://coinmarketcap.northpole.ro/api/v5/all.json".freeze
 
       # Seconds after which the current rates are automatically expired
@@ -64,11 +64,15 @@ class Money
 
       def add_exchange_rates
         currencies.each do |currency|
+          next if currency['availableSupplyNumber'] == 0
+
           iso_from = currency['symbol']
           currency['price'].each do |iso_to, rate|
+            iso_to = iso_to.upcase
             next unless Money::Currency.find(iso_from) && Money::Currency.find(iso_to)
+
             add_rate(iso_from, iso_to, rate)
-            add_rate(iso_to, iso_from, 1.0 / rate)
+            add_rate(iso_to, iso_from, 1.0 / rate) rescue binding.pry
           end
         end
       end
