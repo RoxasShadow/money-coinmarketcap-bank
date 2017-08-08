@@ -1,4 +1,3 @@
-require "money"
 require "money/bank/variable_exchange"
 require "open-uri"
 require "json"
@@ -21,7 +20,9 @@ class Money
       def initialize(*args, &block)
         super
 
-        self.ttl_in_seconds = 3600 # 1 hour
+        @currencies_list = []
+
+        @ttl_in_seconds = 3600 # 1 hour
       end
 
       def update_rates
