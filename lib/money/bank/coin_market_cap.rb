@@ -12,6 +12,9 @@ class Money
       # Seconds after which the current rates are automatically expired
       attr_accessor :ttl_in_seconds
 
+      # List of currencies
+      attr_reader :currencies_list
+
       # Rates expiration time
       attr_reader :rates_expire_at
 
@@ -25,6 +28,8 @@ class Money
         store.each_rate do |iso_from, iso_to, _rate|
           add_rate(iso_from, iso_to, nil)
         end
+
+        @currencies_list = []
 
         add_exchange_rates
       end
@@ -67,12 +72,14 @@ class Money
           next if currency['availableSupplyNumber'] == 0
 
           iso_from = currency['symbol']
+          @currencies_list << iso_from
+
           currency['price'].each do |iso_to, rate|
             iso_to = iso_to.upcase
             next unless Money::Currency.find(iso_from) && Money::Currency.find(iso_to)
 
             add_rate(iso_from, iso_to, rate)
-            add_rate(iso_to, iso_from, 1.0 / rate) rescue binding.pry
+            add_rate(iso_to, iso_from, 1.0 / rate)
           end
         end
       end
