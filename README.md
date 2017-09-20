@@ -11,9 +11,9 @@ All the credits go to its creators.
 
 ```rb
 # Minimal requirements
-require "money/bank/uphold"
+require 'money/bank/coin_market_cap'
 
-bank = Money::Bank::Uphold.new
+bank = Money::Bank::CoinMarketCap.new
 
 # (optional)
 # Set the number of seconds after which the rates are automatically expired.
